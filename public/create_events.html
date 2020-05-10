@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Create Event</title>
+
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+	
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfRpWlZTVxX9fIliUwlrTni-v_iKMpOFc"></script> -->
+
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+	<link rel="stylesheet" href="/css/style.css"> 
+	
+	<!-- JS Scipt for Google maps -->
+	<!-- <script>
+		var geocoder;
+		var map;
+		var marker;
+		
+		/*
+		 * Google Map with marker
+		 */
+		function initialize() {
+			var initialLat = $('.search_latitude').val();
+			var initialLong = $('.search_longitude').val();
+			initialLat = initialLat?initialLat:36.169648;
+			initialLong = initialLong?initialLong:-115.141000;
+		
+			var latlng = new google.maps.LatLng(initialLat, initialLong);
+			var options = {
+				zoom: 16,
+				center: latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+		
+			map = new google.maps.Map(document.getElementById("geomap"), options);
+		
+			geocoder = new google.maps.Geocoder();
+		
+			marker = new google.maps.Marker({
+				map: map,
+				draggable: true,
+				position: latlng
+			});
+		
+			google.maps.event.addListener(marker, "dragend", function () {
+				var point = marker.getPosition();
+				map.panTo(point);
+				geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						map.setCenter(results[0].geometry.location);
+						marker.setPosition(results[0].geometry.location);
+						$('.search_addr').val(results[0].formatted_address);
+						$('.search_latitude').val(marker.getPosition().lat());
+						$('.search_longitude').val(marker.getPosition().lng());
+					}
+				});
+			});
+		
+		}
+		
+		$(document).ready(function () {
+			//load google map
+			initialize();
+			
+			/*
+			 * autocomplete location search
+			 */
+			var PostCodeid = '#search_location';
+			$(function () {
+				$(PostCodeid).autocomplete({
+					source: function (request, response) {
+						geocoder.geocode({
+							'address': request.term
+						}, function (results, status) {
+							response($.map(results, function (item) {
+								return {
+									label: item.formatted_address,
+									value: item.formatted_address,
+									lat: item.geometry.location.lat(),
+									lon: item.geometry.location.lng()
+								};
+							}));
+						});
+					},
+					select: function (event, ui) {
+						$('.search_addr').val(ui.item.value);
+						$('.search_latitude').val(ui.item.lat);
+						$('.search_longitude').val(ui.item.lon);
+						var latlng = new google.maps.LatLng(ui.item.lat, ui.item.lon);
+						marker.setPosition(latlng);
+						initialize();
+					}
+				});
+			});
+			
+			/*
+			 * Point location on google map
+			 */
+			$('.get_map').click(function (e) {
+				var address = $(PostCodeid).val();
+				geocoder.geocode({'address': address}, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						map.setCenter(results[0].geometry.location);
+						marker.setPosition(results[0].geometry.location);
+						$('.search_addr').val(results[0].formatted_address);
+						$('.search_latitude').val(marker.getPosition().lat());
+						$('.search_longitude').val(marker.getPosition().lng());
+					} else {
+						alert("Geocode was not successful for the following reason: " + status);
+					}
+				});
+				e.preventDefault();
+			});
+		
+			//Add listener to marker for reverse geocoding
+			google.maps.event.addListener(marker, 'drag', function () {
+				geocoder.geocode({'latLng': marker.getPosition()}, function (results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						if (results[0]) {
+							$('.search_addr').val(results[0].formatted_address);
+							$('.search_latitude').val(marker.getPosition().lat());
+							$('.search_longitude').val(marker.getPosition().lng());
+						}
+					}
+				});
+			});
+		});
+	</script> -->
+</head>
+<body>
+
+    <div class="main">
+
+        <div class="container">
+            <form action="/create_events" method="POST" class="appointment-form" id="appointment-form">
+                <h2>museum event form</h2>
+                <div class="form-group-1">
+					<input type="text" name="name" id="title" placeholder="Title" required />
+                    <input type="email" name="email" id="email" placeholder="Contact Email" required />
+                    <input type="text" name="phone" id="phone_number" placeholder="Event Manager's Contact in XXX-XXX-XXXX format" required />
+                </div>
+                <div class="form-group-2">
+					<h3>Describe the Event ?</h3>
+					<input type="number" name="price" id="price" placeholder="Price $" required />
+					<input type="text" name="time" id="time" placeholder="Event Timings in 24-hour format" required />
+					<input type="text" name="date" id="date" placeholder="Event Date in yyyy-mm-dd format" required />
+					<input type="text" name="location" id="search_location" placeholder="Event Location" required />
+<!-- 					
+					
+					<div class="form-group input-group">
+						<input type="text" id="search_location" name="location" class="form-control" placeholder="Search location">
+						<div class="input-group-btn">
+							<button class="btn btn-default get_map" type="submit">
+								Locate
+							</button>
+						</div>
+					</div>
+
+					display google map
+					<div id="geomap"></div>
+
+					display selected location information
+					<h4>Location Details</h4>
+					<p>Address: <input type="text" class="search_addr" size="45"></p>
+					<p>Latitude: <input type="text" class="search_latitude" size="30"></p>
+					<p>Longitude: <input type="text" class="search_longitude" size="30"></p> -->
+					
+					<textarea rows="4" cols="50" name="description" placeholder="Event Description"></textarea>
+					<input type="text" name="link" id="link" placeholder="Image Link" required />
+                </div>
+                <div class="form-check">
+                    <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                    <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree to the  <a href="#" class="term-service">Terms and Conditions</a></label>
+                </div>
+                <div class="form-submit">
+                    <input type="submit" name="submit" id="submit" class="submit" value="Request Registration" />
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="js/create_event.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

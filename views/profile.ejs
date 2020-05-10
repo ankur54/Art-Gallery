@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user.name %> Profile</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/css/events.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+    .profile_card {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+      margin: auto;
+      text-align: center;
+      font-family: arial;
+    }
+
+    .profile_title {
+      color: grey;
+      font-size: 18px;
+    }
+
+    .profile_button {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 8px;
+      color: white;
+      background-color: #000;
+      text-align: center;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
+
+    .profile_link {
+      text-decoration: none;
+      font-size: 22px;
+      color: black;
+    }
+
+    button:hover, a:hover {
+      opacity: 0.7;
+    }
+    </style>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row profile">
+      <div class="col-md-3">
+        <div class="profile-sidebar">
+                  <!-- SIDEBAR USERPIC -->
+          <div class="profile-userpic">
+            <img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+          </div>
+                  <!-- END SIDEBAR USERPIC -->
+                  <!-- SIDEBAR USER TITLE -->
+          <div class="profile-usertitle">
+            <i class="fa fa-user" style="font-size: 48px;"></i>
+            <div class="profile-usertitle-name">
+              <%= user.name %>
+            </div>
+            <div class="profile-usertitle-job">
+              <%=user.email%>
+            </div>
+          </div>
+                  <!-- END SIDEBAR USER TITLE -->
+                  <!-- SIDEBAR BUTTONS -->
+          <div class="profile-userbuttons">
+            <a href="/users/logout" class="btn btn-danger">Logout</a>
+          </div>
+                  <!-- END SIDEBAR BUTTONS -->
+                  <!-- SIDEBAR MENU -->
+            <div class="profile-usermenu">
+              <ul class="nav">
+                <li class="active">
+                  <a href="#">
+                  <i class="glyphicon glyphicon-home"></i>
+                  Overview </a>
+                </li>
+                <li>
+                  <a href="/users/profile/account">
+                  <i class="glyphicon glyphicon-user"></i>
+                  Account Settings </a>
+                </li>
+                <li>
+                  <a href="/users/profile/booking" >
+                  <i class="glyphicon glyphicon-ok"></i>
+                  Tickets </a>
+                </li>
+                <li>
+                  <a href="#">
+                  <i class="glyphicon glyphicon-flag"></i>
+                  Help </a>
+                </li>
+              </ul>
+            </div>
+            <!-- END MENU -->
+        </div>
+          </div>
+          <div class="col-md-9">
+            <div class="profile-content">
+                
+            <% if (event === "account") { %>
+
+              <form method="POST" action="/users/profile/update">
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Update Email address</label>
+                  <input type="email" class="form-control" name="email" id="email_update" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">Update/Add Description</label>
+                  <textarea class="form-control" name="description" id="description" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Residential address</label>
+                  <input type="test" class="form-control" name="resident" id="residential_add" placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Update Phone Number</label>
+                  <input type="test" class="form-control" name="phone" id="phone" placeholder="name@example.com">
+                </div>
+                <input type="submit" value="Submit">
+              </form>
+             
+            <% } else if (event === "booking") { %>
+
+              <% cart.forEach(items => { %>
+
+                <div class="container">
+                  <% items.forEach(product => { %>
+          
+                      <div class="card-media">
+                        <!-- media container -->
+                        <div class="card-media-object-container">
+                          <div class="card-media-object" style="background-image: url('<%=product.link%>');"></div>
+                          <span class="card-media-object-tag subtle">Selling Fast</span>
+                          <ul class="card-media-object-social-list">
+                            <li>
+                              <img src="https://s10.postimg.cc/3rjjbzcvd/profile_f.jpg" class="">
+                            </li>
+                            <li>
+                              <img src="https://s16.postimg.cc/b0j0djh79/profile_0_f.jpg" class="">
+                            </li>
+                            <li class="card-media-object-social-list-item-additional">
+                              <span>+2</span>
+                            </li>
+                          </ul>
+                        </div>
+          
+                        <!-- body container -->
+                        <div class="card-media-body">
+                          <div class="card-media-body-top">
+                            <span class="subtle">Mon, APR 09, 7:00 PM</span>
+                            <div class="card-media-body-top-icons u-float-right">
+                              <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+                              </svg>
+                              <svg fill="#888888" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 3H7c-1.1 0-1.99.9-1.99 2L5 21l7-3 7 3V5c0-1.1-.9-2-2-2z"/>
+                                <path d="M0 0h24v24H0z" fill="none"/>
+                              </svg>
+                            </div>
+                          </div>
+                          <h1 class="card-media-body-heading"><%= product.name %></h1>
+                          <h3 style="color: grey;"><%= product.description %></h3>
+                          <div class="card-media-body-supporting-bottom">
+                            <span class="card-media-body-supporting-bottom-text subtle">Mezzanine, San Francisco, CA</span>
+                            <span class="card-media-body-supporting-bottom-text subtle u-float-right">Free &ndash; $<%= product.price %></span>
+                          </div>
+                          <div class="card-media-body-supporting-bottom card-media-body-supporting-bottom-reveal">
+                            <span class="card-media-body-supporting-bottom-text subtle">#Music #Party</span>
+                            <a href="/delete/<%= product._id %>" class="card-media-body-supporting-bottom-text card-media-link u-float-right">UNREGISTER</a>
+                          </div>
+                        </div>
+                      </div>
+          
+                  <% }) %> 
+          
+                </div>
+              <% }) %>
+
+            <% } else if (event === 'Overview') { %>
+              <h2 style="text-align:center">User Profile Card</h2>
+
+              <div class="profile_card">
+                <img src="https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/styles/full_width/public/thumbnails/image/wyoming-scenery-wallpaper-2.jpg" alt="John" style="width:100%">
+                <h1><%= user.name %></h1>
+                <p class="profile_title"><%= user.email %></p>
+                <p><%= user.description %></p>
+                <div style="margin: 24px 0;">
+                  <a href="#"><i class="fa fa-dribbble profile_link"></i></a> 
+                  <a href="#"><i class="fa fa-twitter profile_link"></i></a>  
+                  <a href="#"><i class="fa fa-linkedin profile_link"></i></a>  
+                  <a href="#"><i class="fa fa-facebook profile_link"></i></a> 
+                </div>
+                <form action="/users/profile/booking" class="inline">
+                  <button class="profile_button submit-button">Bookings</button>
+                </form>
+              </div>
+
+            <% } %>  
+                  
+            </div>
+          </div>
+      </div>
+  </div>
+  <center>
+  <strong>Powered by <a href="http://j.mp/metronictheme" target="_blank">KeenThemes</a></strong>
+  </center>
+  <br>
+  <br>
+</body>
+</html>
+<!------ Include the above in your HEAD tag ---------->
+
+<!--
+User Profile Sidebar by @keenthemes
+A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
+Licensed under MIT
+-->

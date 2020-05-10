@@ -1,0 +1,24 @@
+<% if(typeof reg_error != 'undefined') { %>
+  <div class="alert alert-dismissible alert-warning">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= reg_error %></strong>
+  </div>
+<% } %> 
+<% if (success_message != '') { %>
+  <div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= success_message %></strong> 
+  </div>
+<% } %>
+<% if (failure_message != '') { %>
+  <div class="alert alert-dismissible alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= failure_message %></strong>
+  </div>
+<% } %>
+<% if (error != '') { %>
+  <div class="alert alert-dismissible alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong><%= error %></strong>
+  </div>
+<% } %>
